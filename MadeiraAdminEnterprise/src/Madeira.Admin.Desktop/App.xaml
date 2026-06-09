@@ -1,0 +1,9 @@
+<Application x:Class="Madeira.Admin.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Madeira.Admin.Desktop"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Application-level resources can be defined here -->
+    </Application.Resources>
+</Application>

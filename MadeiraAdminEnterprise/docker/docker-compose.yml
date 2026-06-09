@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  web:
+    image: madeira-admin-web
+    build:
+      context: ./src/Madeira.Admin.Web
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - api
+    networks:
+      - madeira-network
+
+  api:
+    image: madeira-admin-api
+    build:
+      context: ./src/Madeira.Admin.API
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=madeira_admin;Username=postgres;Password=yourpassword
+    networks:
+      - madeira-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: madeira_admin
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yourpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - madeira-network
+
+networks:
+  madeira-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
